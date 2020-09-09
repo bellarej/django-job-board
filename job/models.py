@@ -6,6 +6,10 @@ JOB_TYPE = (
     ('Part time',' Part time'),
 )
 
+def image_upload(instance, filename):
+    imagename, extension = filename.split(".")
+    return "jobs/%s.%s"%(instance.id,extension)
+
 # Create your models here.
 
 class Job (models.Model):
@@ -20,6 +24,9 @@ class Job (models.Model):
 
     #Relation
     categoriy = models.ForeignKey('Category', on_delete=models.CASCADE)
+
+    #Images
+    image = models.ImageField(upload_to=image_upload)
 
     def __str__(self):
         return self.title
